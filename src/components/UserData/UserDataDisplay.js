@@ -14,7 +14,8 @@ class UserDataDisplay extends React.Component {
       showModal: false,
       userId:null,
       date:new Date(),
-      
+      recordFound:false,
+      currentActivity:{},
     };
     
   }
@@ -34,13 +35,31 @@ class UserDataDisplay extends React.Component {
       showModal: false,
     });
   };
+
+
   storeDate=(date)=>{
     this.setState({date})
-    
+    const currentUserActivityPeriods = this.state.userData
+              .filter(item=>item.id === this.state.userId)
+              .map(item=> item.activity_periods)
+               
+    let recordFound = false
+    let currentActivity = {}
+    for(let i = 0; i< currentUserActivityPeriods[0].length; i++) {
+      let activity = currentUserActivityPeriods[0][i]
+      if (date.toString().substring(4,16) === activity.start_time.substring(0,12)) {
+       recordFound=true
+       currentActivity=activity
+        break;  
+      } else {
+        recordFound=false
+        }
+    }
+     this.setState({recordFound: recordFound, currentActivity: currentActivity}) 
+                
   }
 
   render() {
-    console.log('rec',this.state.recordFound)
     return (
       <div className="table-data-container">
         <Table striped bordered hover>
@@ -72,25 +91,15 @@ class UserDataDisplay extends React.Component {
           </h3>
             <Calendar onChange={(date)=>this.storeDate(date)} value={this.state.date} />            
             {
-              this.state.userData.filter(item=>item.id === this.state.userId)
-              .map(item=> item.activity_periods
-                .map(activity=>                  
-                  this.state.date.toString().substring(4,16) === activity.start_time.substring(0,12)
-                    ?   
-                    (
-                      <>
-                                              
+              this.state.recordFound === true ? 
                     <UserLoginDetails 
-                      startTime={activity.start_time.substring(12)} 
-                      endTime={activity.end_time.substring(12)}
+                      startTime={this.state.currentActivity.start_time.substring(12)} 
+                      endTime={this.state.currentActivity.end_time.substring(12)}
                     />
-                    </>
-                    )
-                     :
-                    null                             
-                ))              
+                    :
+                     <p className="no-record">No Record Found</p>                                       
             } 
-                 
+              
           </Modal.Body>
         </Modal>
           :null        
