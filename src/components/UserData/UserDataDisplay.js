@@ -14,8 +14,8 @@ class UserDataDisplay extends React.Component {
       showModal: false,
       userId:null,
       date:new Date(),
+      
     };
-    this.error=true
     
   }
 
@@ -36,8 +36,11 @@ class UserDataDisplay extends React.Component {
   };
   storeDate=(date)=>{
     this.setState({date})
+    
   }
+
   render() {
+    console.log('rec',this.state.recordFound)
     return (
       <div className="table-data-container">
         <Table striped bordered hover>
@@ -76,7 +79,7 @@ class UserDataDisplay extends React.Component {
                     ?   
                     (
                       <>
-                    {this.error=!!this.error }                          
+                                              
                     <UserLoginDetails 
                       startTime={activity.start_time.substring(12)} 
                       endTime={activity.end_time.substring(12)}
@@ -84,12 +87,10 @@ class UserDataDisplay extends React.Component {
                     </>
                     )
                      :
-                    null                               
+                    null                             
                 ))              
             } 
-                {
-                  this.error === true ? <p className="no-record">No Record Found</p> : null
-                }  
+                 
           </Modal.Body>
         </Modal>
           :null        
