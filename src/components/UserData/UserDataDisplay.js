@@ -34,7 +34,9 @@ class UserDataDisplay extends React.Component {
       showModal: false,
     });
   };
-
+  storeDate=(date)=>{
+    this.setState({date})
+  }
   render() {
     return (
       <div className="table-data-container">
@@ -65,7 +67,7 @@ class UserDataDisplay extends React.Component {
           <h3>Hi, 
             { this.state.userData.filter(item=>item.id === this.state.userId).map(item=>item.real_name)}
           </h3>
-            <Calendar onChange={(date)=>this.setState({date})} value={this.state.date} />            
+            <Calendar onChange={(date)=>this.storeDate(date)} value={this.state.date} />            
             {
               this.state.userData.filter(item=>item.id === this.state.userId)
               .map(item=> item.activity_periods
@@ -74,7 +76,7 @@ class UserDataDisplay extends React.Component {
                     ?   
                     (
                       <>
-                    {this.error=!this.error }                          
+                    {this.error=!!this.error }                          
                     <UserLoginDetails 
                       startTime={activity.start_time.substring(12)} 
                       endTime={activity.end_time.substring(12)}

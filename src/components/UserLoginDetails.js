@@ -14,7 +14,8 @@ class UserLoginDetails extends React.Component {
         <p className='timing-box-end'>
           <span className="time-in-out">OUT-TIME</span>
           <span>{this.props.endTime}</span>
-        </p>        
+        </p> 
+          
       </div>
     );
   }
