@@ -1,0 +1,31 @@
+.usertiming-container{
+    display:flex;
+    justify-content:center;
+}
+.timing-box-start{
+    border: 3px solid #93C54B;
+    padding:10px;
+    margin:5px;
+    border-radius:7px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    font-size:12px;
+    font-weight:700;
+}
+
+.timing-box-end{
+    border: 3px solid #800000;
+    padding:10px;
+    margin:5px;
+    border-radius:7px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    font-size:12px;
+    font-weight:700;
+}
+.time-in-out{
+    font-size:8px;
+    color:gray;
+}
